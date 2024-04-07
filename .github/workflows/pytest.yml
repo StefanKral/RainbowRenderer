@@ -24,6 +24,10 @@ jobs:
 
     - name: Install dependencies
       run: pip install pytest
+    - name: Install dependencies2
+      run: pip install numpy
+    - name: Install dependencies3
+      run: pip install pillow
 
     - name: Test with pytest
       run: pytest
