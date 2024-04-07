@@ -57,7 +57,7 @@ def normalizeTo8Bit(value):
     :param value: Float between 0 and 1
     :return: Int between 0 and 255
     """
-    #rounded = int(round((value+1.0) * 128, 0))
+    # rounded = int(round((value+1.0) * 128, 0))
     rounded = int(round((value) * 255, 0))
     if rounded > 255:
         rounded = 255
