@@ -54,7 +54,7 @@ def normalizeTo8Bit(value):
     :param value: Float between 0 and 1
     :return: Int between 0 and 255
     """
-    rounded = int(round(value*255, 0))
+    rounded = int(round((value)*255, 0))
     if rounded > 255:
         rounded = 255
     return rounded
@@ -67,7 +67,7 @@ def redValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(1*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(3*posX*posY*math.pi))
 
 def greenValueCalculation(posX, posY):
     """
@@ -76,7 +76,7 @@ def greenValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(2*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(5*posX*posY*math.pi))
 
 def blueValueCalculation(posX, posY):
     """
@@ -85,7 +85,7 @@ def blueValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(4*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(8*posX*posY*math.pi))
 
 imSize = getStandardScreenDefinitions("landscape","HD")
 print(imSize)
@@ -107,3 +107,6 @@ for x in range(0, imSize[0]):
 img = Image.fromarray(np_data)
 img.save("RainbowRendererOutput.png")
 img.show()
+
+##TODO
+##ADD Anti Aliasing Filter
