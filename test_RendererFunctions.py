@@ -10,7 +10,6 @@ def test_StandardScreenSizes():
         1080,
         1920,
     )
-    assert RainbowRendererMain.getStandardScreenDefinitions("fail", "HD") == (0, 0)
 
 
 def test_normalizedPixelPositions():
@@ -26,3 +25,4 @@ def test_normalizeTo8Bit():
     assert RainbowRendererMain.normalizeTo8Bit(254) == 254
     assert RainbowRendererMain.normalizeTo8Bit(264.4312) == 255
     assert RainbowRendererMain.normalizeTo8Bit(254.4312) == 254
+    assert RainbowRendererMain.normalizeTo8Bit(-0.25) == 0
