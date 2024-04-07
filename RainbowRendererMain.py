@@ -1,6 +1,16 @@
+import numpy as np
 from PIL import Image
+import math
 print("Start")
+
+
 def getStandardScreenDefinitions(orientation, quality):
+    """
+
+    :param orientation: Must be "landscape" or "portrait"
+    :param quality: Can be "SD", "HD", "UHD" and "4K"
+    :return: Tuple with Screen Size
+    """
     if orientation == "landscape":
         if quality == "SD":
             return (720, 405)
@@ -25,6 +35,11 @@ def getStandardScreenDefinitions(orientation, quality):
             raise Exception("Not Standard Portrait Screen Size")
 
 def getNormalizedPixelPositions(imageSizes):
+    """
+
+    :param imageSizes: (xSize, ySize)
+    :return: dict with "x" and "y" arrays each between 0 and 1 on length
+    """
     xArray = []
     yArray = []
     for x in range(imageSizes[0]):
@@ -33,12 +48,62 @@ def getNormalizedPixelPositions(imageSizes):
         yArray.append(y/(imageSizes[1]-1))
     return {"x": xArray, "y": yArray}
 
-imSize = getStandardScreenDefinitions("landscape","SD")
+def normalizeTo8Bit(value):
+    """
+
+    :param value: Float between 0 and 1
+    :return: Int between 0 and 255
+    """
+    rounded = int(round(value*255, 0))
+    if rounded > 255:
+        rounded = 255
+    return rounded
+
+
+def redValueCalculation(posX, posY):
+    """
+    Here you can change your Calculation for the red Color
+    :param posX: normalized X position (0 to 1)
+    :param posY: normalized Y position (0 to 1)
+    :return: 0-255
+    """
+    return normalizeTo8Bit(math.sin(1*posX*posY*math.pi))
+
+def greenValueCalculation(posX, posY):
+    """
+    Here you can change your Calculation for the green Color
+    :param posX: normalized X position (0 to 1)
+    :param posY: normalized Y position (0 to 1)
+    :return: 0-255
+    """
+    return normalizeTo8Bit(math.sin(2*posX*posY*math.pi))
+
+def blueValueCalculation(posX, posY):
+    """
+    Here you can change your Calculation for the blue Color
+    :param posX: normalized X position (0 to 1)
+    :param posY: normalized Y position (0 to 1)
+    :return: 0-255
+    """
+    return normalizeTo8Bit(math.sin(3*posX*posY*math.pi))
+
+imSize = getStandardScreenDefinitions("landscape","HD")
 print(imSize)
-print(imSize[0])
 
-print(getNormalizedPixelPositions(imSize)["x"])
-print(getNormalizedPixelPositions(imSize)["y"])
+normedPixels = getNormalizedPixelPositions(imSize)
+print(normedPixels["x"])
+print(normedPixels["y"])
 im = Image.new(mode="RGB", size=imSize)
+np_data= np.zeros(shape=(imSize[1],imSize[0],3), dtype=np.uint8)
 
-im.show()
+for x in range(0, imSize[0]):
+    for y in range(0, imSize[1]):
+        np_data[y,x,0] = redValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        np_data[y,x,1] = greenValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        np_data[y,x,2] = blueValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        #print(np_data[y][x])
+
+
+img = Image.fromarray(np_data)
+img.save("RainbowRendereOutput.png")
+img.show()
