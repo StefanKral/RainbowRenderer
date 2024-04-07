@@ -85,7 +85,7 @@ def blueValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(3*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(4*posX*posY*math.pi))
 
 imSize = getStandardScreenDefinitions("landscape","HD")
 print(imSize)
