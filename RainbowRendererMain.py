@@ -1,5 +1,5 @@
 from PIL import Image
-
+print("Start")
 def getStandardScreenDefinitions(orientation, quality):
     if orientation == "landscape":
         if quality == "SD":
@@ -24,4 +24,18 @@ def getStandardScreenDefinitions(orientation, quality):
         else:
             raise Exception("Not Standard Portrait Screen Size")
 
-    im = Image.new(mode="RGB", size=getStandardScreenDefinitions("landscape","SD"))
+def getNormalizedPixelPositions(imageSizes):
+    xArray = []
+    yArray = []
+    for x in range(imageSizes[0]):
+        xArray.append(x/100.0)
+    for y in range(imageSizes[1]):
+        yArray.append(y/100.0)
+    return {"x": xArray, "y": yArray}
+
+imSize = getStandardScreenDefinitions("landscape","SD")
+print(imSize)
+print(imSize[0])
+im = Image.new(mode="RGB", size=imSize)
+
+im.show()
