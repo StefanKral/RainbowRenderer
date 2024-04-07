@@ -28,14 +28,17 @@ def getNormalizedPixelPositions(imageSizes):
     xArray = []
     yArray = []
     for x in range(imageSizes[0]):
-        xArray.append(x/100.0)
+        xArray.append(x/(imageSizes[0]-1))
     for y in range(imageSizes[1]):
-        yArray.append(y/100.0)
+        yArray.append(y/(imageSizes[1]-1))
     return {"x": xArray, "y": yArray}
 
 imSize = getStandardScreenDefinitions("landscape","SD")
 print(imSize)
 print(imSize[0])
+
+print(getNormalizedPixelPositions(imSize)["x"])
+print(getNormalizedPixelPositions(imSize)["y"])
 im = Image.new(mode="RGB", size=imSize)
 
 im.show()
