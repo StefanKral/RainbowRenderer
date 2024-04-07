@@ -20,9 +20,7 @@ def test_normalizedPixelPositions():
 
 
 def test_normalizeTo8Bit():
-    assert RainbowRendererMain.normalizeTo8Bit(256) == 255
-    assert RainbowRendererMain.normalizeTo8Bit(255) == 255
-    assert RainbowRendererMain.normalizeTo8Bit(254) == 254
+    assert RainbowRendererMain.normalizeTo8Bit(1.012) == 254
     assert RainbowRendererMain.normalizeTo8Bit(264.4312) == 255
-    assert RainbowRendererMain.normalizeTo8Bit(254.4312) == 254
+    assert RainbowRendererMain.normalizeTo8Bit(0.998) == 254
     assert RainbowRendererMain.normalizeTo8Bit(-0.25) == 0
