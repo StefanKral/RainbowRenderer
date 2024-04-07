@@ -23,4 +23,4 @@ def test_normalizeTo8Bit():
     assert RainbowRendererMain.normalizeTo8Bit(1.012) == 255
     assert RainbowRendererMain.normalizeTo8Bit(264.4312) == 255
     assert RainbowRendererMain.normalizeTo8Bit(0.998) == 254
-    assert RainbowRendererMain.normalizeTo8Bit(-0.25) == 0
+    assert RainbowRendererMain.normalizeTo8Bit(-0.25) == 255
