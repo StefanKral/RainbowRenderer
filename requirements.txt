@@ -4,6 +4,7 @@
 #The python image libary (PIL) which is now forked and called Pillow
 #python3 -m pip install --upgrade pip
 #python3 -m pip install --upgrade Pillow
+#https://pillow.readthedocs.io/en/stable/index.html
 #
 
 numpy
