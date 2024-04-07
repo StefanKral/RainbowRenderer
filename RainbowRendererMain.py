@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 import math
+
 print("Start")
 
 
@@ -34,6 +35,7 @@ def getStandardScreenDefinitions(orientation, quality):
         else:
             raise Exception("Not Standard Portrait Screen Size")
 
+
 def getNormalizedPixelPositions(imageSizes):
     """
 
@@ -43,10 +45,11 @@ def getNormalizedPixelPositions(imageSizes):
     xArray = []
     yArray = []
     for x in range(imageSizes[0]):
-        xArray.append(x/(imageSizes[0]-1))
+        xArray.append(x / (imageSizes[0] - 1))
     for y in range(imageSizes[1]):
-        yArray.append(y/(imageSizes[1]-1))
+        yArray.append(y / (imageSizes[1] - 1))
     return {"x": xArray, "y": yArray}
+
 
 def normalizeTo8Bit(value):
     """
@@ -54,7 +57,7 @@ def normalizeTo8Bit(value):
     :param value: Float between 0 and 1
     :return: Int between 0 and 255
     """
-    rounded = int(round((value)*255, 0))
+    rounded = int(round((value) * 255, 0))
     if rounded > 255:
         rounded = 255
     return rounded
@@ -67,7 +70,8 @@ def redValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(3*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(3 * posX * posY * math.pi))
+
 
 def greenValueCalculation(posX, posY):
     """
@@ -76,7 +80,8 @@ def greenValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(5*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(5 * posX * posY * math.pi))
+
 
 def blueValueCalculation(posX, posY):
     """
@@ -85,24 +90,24 @@ def blueValueCalculation(posX, posY):
     :param posY: normalized Y position (0 to 1)
     :return: 0-255
     """
-    return normalizeTo8Bit(math.sin(8*posX*posY*math.pi))
+    return normalizeTo8Bit(math.sin(8 * posX * posY * math.pi))
 
-imSize = getStandardScreenDefinitions("landscape","HD")
+
+imSize = getStandardScreenDefinitions("landscape", "HD")
 print(imSize)
 
 normedPixels = getNormalizedPixelPositions(imSize)
 print(normedPixels["x"])
 print(normedPixels["y"])
 im = Image.new(mode="RGB", size=imSize)
-np_data= np.zeros(shape=(imSize[1],imSize[0],3), dtype=np.uint8)
+np_data = np.zeros(shape=(imSize[1], imSize[0], 3), dtype=np.uint8)
 
 for x in range(0, imSize[0]):
     for y in range(0, imSize[1]):
-        np_data[y,x,0] = redValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
-        np_data[y,x,1] = greenValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
-        np_data[y,x,2] = blueValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
-        #print(np_data[y][x])
-
+        np_data[y, x, 0] = redValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        np_data[y, x, 1] = greenValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        np_data[y, x, 2] = blueValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        # print(np_data[y][x])
 
 img = Image.fromarray(np_data)
 img.save("RainbowRendererOutput.png")
