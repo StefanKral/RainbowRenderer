@@ -104,9 +104,15 @@ np_data = np.zeros(shape=(imSize[1], imSize[0], 3), dtype=np.uint8)
 
 for x in range(0, imSize[0]):
     for y in range(0, imSize[1]):
-        np_data[y, x, 0] = redValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
-        np_data[y, x, 1] = greenValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
-        np_data[y, x, 2] = blueValueCalculation(normedPixels["x"][x], normedPixels["y"][y])
+        np_data[y, x, 0] = redValueCalculation(
+            normedPixels["x"][x], normedPixels["y"][y]
+        )
+        np_data[y, x, 1] = greenValueCalculation(
+            normedPixels["x"][x], normedPixels["y"][y]
+        )
+        np_data[y, x, 2] = blueValueCalculation(
+            normedPixels["x"][x], normedPixels["y"][y]
+        )
         # print(np_data[y][x])
 
 img = Image.fromarray(np_data)
