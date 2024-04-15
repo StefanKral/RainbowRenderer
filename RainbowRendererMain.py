@@ -112,7 +112,8 @@ for x in range(0, imSize[0]):
         np_data[y, x, 2] = blueValueCalculation(normedPixels["x"][x], normedPixels["y"][y])  # print(np_data[y][x])
 
 img = Image.fromarray(np_data)
-img.save("RainbowRendererOutput.png")  # img.show()
+img.save("RainbowRendererOutput.png")
+#img.show()
 
 ##TODO
 ##ADD Anti Aliasing Filter
