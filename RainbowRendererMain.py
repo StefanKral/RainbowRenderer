@@ -120,7 +120,7 @@ for x in range(0, imSize[0]):
 
 img = Image.fromarray(np_data)
 img.save("RainbowRendererOutput.png")
-img.show()
+#img.show()
 
 ##TODO
 ##ADD Anti Aliasing Filter
